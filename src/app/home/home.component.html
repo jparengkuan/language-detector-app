@@ -5,8 +5,8 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">Language detector app</h5>
-    <p class="card-text">This application can detect any language from a given string</p>
-    <div class="alert alert-info" role="alert">
+    <p class="card-text" >This application can detect any language from a given string</p>
+    <div *ngIf="!_authService.loggedIn()" class="alert alert-info" role="alert">
       Login or register to submit your texts
     </div>
   </div>

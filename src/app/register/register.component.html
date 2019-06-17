@@ -30,7 +30,13 @@
       </div>
       <!-- /form card login -->
 
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+
+
     </div>
+
 
 
   </div>

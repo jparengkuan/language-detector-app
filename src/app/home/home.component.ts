@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EntriesService} from '../entries.service';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   latestEntries = []
 
-  constructor(private entriesService: EntriesService) { }
+  constructor(private entriesService: EntriesService, private _authService: AuthService) { }
 
   ngOnInit() {
     this.entriesService.getLatestEntries()

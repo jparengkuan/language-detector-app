@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginUserData =  {}
+  error
 
   constructor(private _auth: AuthService, private _router: Router) {}
 
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', res.token)
           this._router.navigate(['/dashboard'])
         },
-        err => console.log(err)
+        err => {
+          this.error = err.error.message;
+        }
       );
   }
 }

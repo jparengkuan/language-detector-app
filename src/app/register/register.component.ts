@@ -10,6 +10,7 @@ import { Router} from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerUserData = {}
+  error
 
   constructor(private _auth: AuthService, private _router: Router) { }
 
@@ -23,7 +24,10 @@ export class RegisterComponent implements OnInit {
           console.log(res)
           this._router.navigate(['/login'])
         },
-        err => console.log(err)
+        err => {
+          console.log(err)
+          this.error = err.error.message || err.error.error.message || 'API Offline';
+        }
       );
   }
 }
