@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
         },
         err => {
           console.log(err)
-          this.error = err.error.message || err.error.error.message || 'API Offline';
+          this.error = err.error.message || 'API Offline';
+          console.log(this.error)
         }
       );
   }
