@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
           this._router.navigate(['/dashboard'])
         },
         err => {
-          this.error = err.error.message;
+          this.error = err.error.message || "API Offline";
         }
       );
   }
