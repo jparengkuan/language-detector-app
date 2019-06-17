@@ -1,3 +1,100 @@
-<p>
-  user-panel works!
-</p>
+<div class="py-5">
+  <div class="card">
+    <div class="card-header">
+      UserDashboard
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab"
+             aria-controls="pills-account" aria-selected="true">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-changeDetails-tab" data-toggle="pill" href="#pills-changeDetails" role="tab"
+             aria-controls="pills-ChangeDetails" aria-selected="false">ChangeDetails</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-UserEntries-tab" data-toggle="pill" href="#pills-UserEntries" role="tab"
+             aria-controls="pills-UserEntries" aria-selected="false">UserEntries</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-account" role="tabpanel" aria-labelledby="pills-account-tab">
+          <table class="card-text table table-sm">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+              <td>{{userDetails.name}}</td>
+              <td>{{userDetails.email}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="pills-changeDetails" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <div *ngIf="this.updateError && !this.updateSuccess" class="alert alert-danger" role="alert">
+            {{this.updateError}}
+          </div>
+          <div *ngIf="this.updateSuccess" class="alert alert-success" role="alert">
+            {{this.updateSuccess}}
+          </div>
+          <div class="row"></div>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" class="form-control" [(ngModel)]="this.newName"  placeholder="New name" aria-label="Recipient's username"
+                   aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="userUpdateName()" type="button">Save</button>
+            </div>
+
+            <div class="input-group input-group-sm mb-3 py-4">
+              <input type="text" class="form-control" [(ngModel)]="this.newPassword"  placeholder="New password" aria-label="Recipient's username"
+                     aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="userUpdatePassword()" type="button">Save</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-UserEntries" role="tabpanel" aria-labelledby="pills-UserEntries-tab">
+
+          <div *ngIf="userEntries.length < 1">
+            <div class="alert alert-primary" role="alert">
+              No entries found! start submitting your text strings
+            </div>
+          </div>
+
+          <div *ngIf="userEntries.length > 0">
+              <table class="card-text table table-sm table-dark">
+                <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Text</th>
+                  <th scope="col">Lang</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let entrie of userEntries">
+                  <td>{{entrie.date | date: 'shortDate'}}</td>
+                  <td>{{entrie.text}}</td>
+                  <td>{{entrie.result}}</td>
+                </tr>
+                </tbody>
+              </table>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
