@@ -80,6 +80,9 @@ export class UserPanelComponent implements OnInit {
 
 
   ngOnInit() {
+    this.refreshData()
+
+    //Set interval so information is updated realtime
     this.interval = setInterval(() => {
       this.refreshData();
     }, 5000)
