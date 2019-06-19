@@ -13,6 +13,7 @@ import {TokenInterceptorService} from './token-interceptor.service';
 import { HomeComponent } from './home/home.component';
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import {EntriesService} from './entries.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {EntriesService} from './entries.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [AuthService, EntriesService, AuthGuard,
     {

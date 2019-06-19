@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-panel',
@@ -13,11 +15,16 @@ export class UserPanelComponent implements OnInit {
   userDetails = {}
   userEntries = {}
 
-  updateError;
-  updateSuccess;
+
+  private _success = new Subject<string>();
+  private _error = new Subject<string>();
+  successMessage: string;
+  errorMessage: string;
 
   newPassword;
   newName;
+
+  newText;
 
 
   interval;
@@ -28,10 +35,10 @@ export class UserPanelComponent implements OnInit {
     this._authService.updateUserPassword(this.newPassword)
       .subscribe(
         res => {
-          this.updateSuccess = res.message;
+          this._success.next(res.message)
         },
         err => {
-          this.updateError = err.error.message;
+          this._error.next(err.error.message);
         }
       )
   }
@@ -40,10 +47,10 @@ export class UserPanelComponent implements OnInit {
     this._authService.updateUserName(this.newName)
       .subscribe(
         res => {
-          this.updateSuccess = res.message;
+          this._success.next(res.message)
         },
         err => {
-          this.updateError = err.error.message;
+          this._error.next(err.error.message);
         }
       )
   }
@@ -55,7 +62,6 @@ export class UserPanelComponent implements OnInit {
       .subscribe(
         res => {
           this.userEntries= res.userEntries
-          console.log(this.userEntries)
         },
         err => console.log(err)
       )
@@ -76,10 +82,23 @@ export class UserPanelComponent implements OnInit {
   refreshData() {
     this.getUserEntries()
     this.getUserDetails()
+
   }
 
 
   ngOnInit() {
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+
+    this._error.subscribe((message) => this.errorMessage = message);
+    this._error.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.errorMessage = null);
+
+
     this.refreshData()
 
     //Set interval so information is updated realtime
@@ -89,6 +108,7 @@ export class UserPanelComponent implements OnInit {
   }
 
 
+  newEntrie() {
 
-
+  }
 }
