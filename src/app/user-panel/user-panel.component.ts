@@ -42,6 +42,7 @@ export class UserPanelComponent implements OnInit {
         },
         err => {
           this._error.next(err.error.message)
+          console.log(err)
         }
       )
   }
@@ -105,12 +106,12 @@ export class UserPanelComponent implements OnInit {
 
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
-      debounceTime(2000)
+      debounceTime(10000)
     ).subscribe(() => this.successMessage = null);
 
     this._error.subscribe((message) => this.errorMessage = message);
     this._error.pipe(
-      debounceTime(2000)
+      debounceTime(10000)
     ).subscribe(() => this.errorMessage = null);
 
 
