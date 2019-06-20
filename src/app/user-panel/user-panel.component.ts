@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import {EntriesService} from '../entries.service';
 
 @Component({
   selector: 'app-user-panel',
@@ -29,7 +30,21 @@ export class UserPanelComponent implements OnInit {
 
   interval;
 
-  constructor(private _authService: AuthService) {}
+  constructor(private _authService: AuthService, private _entrieService: EntriesService) {}
+
+  addNewEntrie()
+  {
+    this._entrieService.postEntrie(this.newText)
+      .subscribe(
+        res => {
+          console.log(res)
+          this._success.next('language detected: ' + res.lang)
+        },
+        err => {
+          this._error.next(err.error.message)
+        }
+      )
+  }
 
   userUpdatePassword() {
     this._authService.updateUserPassword(this.newPassword)
@@ -90,12 +105,12 @@ export class UserPanelComponent implements OnInit {
 
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
-      debounceTime(5000)
+      debounceTime(2000)
     ).subscribe(() => this.successMessage = null);
 
     this._error.subscribe((message) => this.errorMessage = message);
     this._error.pipe(
-      debounceTime(5000)
+      debounceTime(2000)
     ).subscribe(() => this.errorMessage = null);
 
 

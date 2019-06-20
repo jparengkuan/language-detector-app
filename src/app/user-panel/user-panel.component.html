@@ -52,12 +52,14 @@
         </ngb-tab>
         <ngb-tab title="Submit text">
           <ng-template ngbTabContent>
+            <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+            <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage= null">{{ errorMessage }}</ngb-alert>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Text</span>
               </div>
               <input type="text" class="form-control" [(ngModel)]="this.newText" placeholder="Enter your text here..." aria-label="text" aria-describedby="basic-addon1">
-              <button class="btn btn-outline-secondary" type="button" (click)="newEntrie()" id="button-addon2">Send</button>
+              <button class="btn btn-outline-secondary" type="button" (click)="addNewEntrie()" id="button-addon2">Send</button>
             </div>
           </ng-template>
         </ngb-tab>
