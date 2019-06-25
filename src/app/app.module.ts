@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import {EntriesService} from './entries.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    UserPanelComponent
+    UserPanelComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

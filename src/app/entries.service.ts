@@ -10,8 +10,12 @@ export class EntriesService {
 
   constructor(private http: HttpClient) { }
 
-  postEntrie(text) {
-    return this.http.post<any>(this._entriesUrl + 'new', {text: text})
+  postEntrie(text, latitude, longitude) {
+    return this.http.post<any>(this._entriesUrl + 'new', {
+      text: text,
+      latitude: latitude,
+      longitude: longitude
+      });
   }
 
   getLatestEntries() {

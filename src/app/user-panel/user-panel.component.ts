@@ -27,14 +27,18 @@ export class UserPanelComponent implements OnInit {
 
   newText;
 
-
   interval;
+
+  //Geo location
+  latitude;
+  longitude;
 
   constructor(private _authService: AuthService, private _entrieService: EntriesService) {}
 
   addNewEntrie()
   {
-    this._entrieService.postEntrie(this.newText)
+
+    this._entrieService.postEntrie(this.newText, this.latitude, this.longitude)
       .subscribe(
         res => {
           console.log(res)
@@ -98,7 +102,31 @@ export class UserPanelComponent implements OnInit {
   refreshData() {
     this.getUserEntries()
     this.getUserDetails()
+    this.getLocation();
 
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+          if (position) {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+
+            console.log ('Latitude: ' + this.latitude)
+            console.log ('Longtitude: ' + this.latitude)
+          }
+        },
+        (error: PositionError) => {
+        console.log(error)
+
+          this.latitude = 0;
+          this.longitude = 0;
+
+        });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }
 
 
