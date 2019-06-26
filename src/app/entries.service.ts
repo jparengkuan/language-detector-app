@@ -10,11 +10,9 @@ export class EntriesService {
 
   constructor(private http: HttpClient) { }
 
-  postEntrie(text, latitude, longitude) {
+  postEntrie(text) {
     return this.http.post<any>(this._entriesUrl + 'new', {
-      text: text,
-      latitude: latitude,
-      longitude: longitude
+      text: text
       });
   }
 
