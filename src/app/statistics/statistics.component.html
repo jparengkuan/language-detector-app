@@ -13,6 +13,9 @@
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Submits</th>
+                <th scope="col">Most Searched Language</th>
+                <th scope="col">Frequency</th>
               </tr>
               </thead>
               <tbody>
@@ -20,36 +23,15 @@
               <tr>
                 <td>{{userDetails.name}}</td>
                 <td>{{userDetails.email}}</td>
+                <td>{{userEntries.length}}</td>
+                <td>{{this.getMostCountedKey()}}</td>
+                <td>{{this.getMostCountedVal()}}</td>
               </tr>
               </tbody>
             </table>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Change Details">
-          <ng-template ngbTabContent>
-            <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
-            <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage= null">{{ errorMessage }}</ngb-alert>
-            <div class="row"></div>
-            <div class="input-group input-group-sm mb-3">
-              <input type="text" class="form-control" [(ngModel)]="this.newName"  placeholder="New name" aria-label="Recipient's username"
-                     aria-describedby="button-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" (click)="userUpdateName()" type="button">Save</button>
-              </div>
-
-              <div class="input-group input-group-sm mb-3 py-4">
-                <input type="text" class="form-control" [(ngModel)]="this.newPassword"  placeholder="New password" aria-label="Recipient's username"
-                       aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" (click)="userUpdatePassword()" type="button">Save</button>
-                </div>
-
-              </div>
-            </div>
-          </ng-template>
-
-        </ngb-tab>
         <ngb-tab title="Submit text">
           <ng-template ngbTabContent>
             <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
@@ -91,8 +73,68 @@
               </table>
             </div>
           </ng-template>
-
         </ngb-tab>
+
+        <ngb-tab title="Latest 10">
+          <ng-template ngbTabContent>
+            <div *ngIf="userEntries.length < 1">
+              <div class="alert alert-primary" role="alert">
+                No entries found! start submitting your text strings
+              </div>
+            </div>
+
+            <div *ngIf="userEntries.length > 0">
+              <table class="card-text table table-sm table-dark">
+                <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Text</th>
+                  <th scope="col">Lang</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let entrie of userEntries; let i = index">
+                  <td *ngIf="i<10">{{entrie.date | date: 'shortDate'}}</td>
+                  <td *ngIf="i<10">{{entrie.text}}</td>
+                  <td *ngIf="i<10">{{entrie.result}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Full History">
+          <ng-template ngbTabContent>
+            <div *ngIf="userEntries.length < 1">
+              <div class="alert alert-primary" role="alert">
+                No entries found! start submitting your text strings
+              </div>
+            </div>
+
+            <div *ngIf="userEntries.length > 0">
+              <table class="card-text table table-sm table-dark">
+                <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Text</th>
+                  <th scope="col">Lang</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let entrie of userEntries">
+                  <td>{{entrie.date | date: 'shortDate'}}</td>
+                  <td>{{entrie.text}}</td>
+                  <td>{{entrie.result}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
       </ngb-tabset>
 
 

@@ -20,6 +20,8 @@ export class StatisticsComponent implements OnInit {
   langCountVal = []
 
   langCountBool = 0;
+  countSet = false;
+  mostCountedIndex = 0;
 
 
   private _success = new Subject<string>();
@@ -125,6 +127,24 @@ export class StatisticsComponent implements OnInit {
       this.langCountVal = Object.values(this.languageCount)
 
       this.langCountBool++;
+      this.countSet = true;
+  }
+  getMostCountedVal(){
+    if(this.countSet = true){
+      var mostCounted = 0;
+      for(let i =0; i<this.langCountVal.length; i++){
+        if(this.langCountVal[i] > mostCounted){
+          mostCounted = this.langCountVal[i];
+          this.mostCountedIndex = i;
+        }
+      }
+      return(mostCounted);
+    }
+  }
+  getMostCountedKey(){
+    if(this.countSet = true){
+      return(this.langCountKey[this.mostCountedIndex])
+    }
   }
 
   refreshData() {
