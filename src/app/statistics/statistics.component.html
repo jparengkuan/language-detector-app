@@ -75,7 +75,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Latest 10">
+        <ngb-tab title="Your Latest 10">
           <ng-template ngbTabContent>
             <div *ngIf="userEntries.length < 1">
               <div class="alert alert-primary" role="alert">
@@ -126,6 +126,38 @@
 
                 <tr *ngFor="let entrie of userEntries">
                   <td>{{entrie.date | date: 'shortDate'}}</td>
+                  <td>{{entrie.text}}</td>
+                  <td>{{entrie.result}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Latest Submits">
+          <ng-template ngbTabContent>
+            <div *ngIf="latestEntries.length < 1">
+              <div class="alert alert-primary" role="alert">
+                No entries found! start submitting your text strings
+              </div>
+            </div>
+
+            <div *ngIf="latestEntries.length > 0">
+              <table class="card-text table table-sm table-dark">
+                <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope ="col">User</th>
+                  <th scope="col">Text</th>
+                  <th scope="col">Lang</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let entrie of latestEntries">
+                  <td>{{entrie.date | date: 'shortDate'}}</td>
+                  <td>{{entrie.user.email}}</td>
                   <td>{{entrie.text}}</td>
                   <td>{{entrie.result}}</td>
                 </tr>

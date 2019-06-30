@@ -15,6 +15,7 @@ export class StatisticsComponent implements OnInit {
 
   userDetails = {}
   userEntries = {}
+  latestEntries = []
   languageCount = {}
   langCountKey = []
   langCountVal = []
@@ -96,6 +97,16 @@ export class StatisticsComponent implements OnInit {
       )
     console.log(this.userEntries)
   }
+  getLatestEntries(){
+    this._entrieService.getLatestEntries()
+      .subscribe(
+        res => {
+          this.latestEntries = res.entries
+          console.log(this.latestEntries)
+        },
+        err => console.log(err)
+      )
+  }
 
   getUserDetails()
   {
@@ -148,8 +159,9 @@ export class StatisticsComponent implements OnInit {
   }
 
   refreshData() {
-    this.getUserEntries()
-    this.getUserDetails()
+    this.getUserEntries();
+    this.getUserDetails();
+    this.getLatestEntries();
     this.getLocation();
     this.countUserDetails();
 
@@ -158,6 +170,7 @@ export class StatisticsComponent implements OnInit {
     this.langCountBool = 0;
     this.languageCount = {};
     this.userEntries = {};
+    this.latestEntries = []
 
   }
 
